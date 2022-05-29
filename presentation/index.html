@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="app.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">CorpoCom Internal Reimbursement Request Management System</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Submit Request</a></li>
+                <li><a href="#" onclick="printMyRequests()">Print My Requests</a></li>
+                <li><a href="#" onclick="printData()">See all Requests</a></li>
+            </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="container">      
+        <div id="content">
+
+        </div>
+      </div>
+     <div class="form">
+        
+            
+            <div class="form-group">
+              <label for="email">Email address:</label>
+              <input type="text" class="form-control" id="email">
+            </div>
+            <div class="form-group">
+              <label for="pwd">Password:</label>
+              <input type="password" class="form-control" id="pwd">
+            </div>
+          <!-- <button onclick="getUser(document.getElementById('email').value, getElementById('pwd').value)" class="btn btn-default">Submit</button>-->
+           <button class="button" type="button" onclick="getUser(document.getElementById('email').value, getElementById('pwd').value)">Submit</button>
+     </div>
+     <div id="currentUser">
+
+     </div>
+     <div id="myrequests"></div>
+</body>
+</html>

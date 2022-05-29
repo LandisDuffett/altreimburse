@@ -1,0 +1,26 @@
+package service;
+
+import java.util.List;
+
+import dao.UserDao;
+import dao.UserDaoImpl;
+import exception.ApplicationException;
+import pojo.UserPojo;
+
+public class UserServiceImpl implements UserService {
+	UserDao userDao;
+
+	public UserServiceImpl() {
+		// this.bookDao = new BookDaoImpl();
+		this.userDao = new UserDaoImpl();
+	}
+
+	@Override
+	public List<UserPojo> getUsers() throws ApplicationException {
+		// logger.info("Entered getAllBooks() in service.");
+		List<UserPojo> allUsers = this.userDao.getUsers();
+		// logger.info("Exited getAllBooks() in service.");
+		return allUsers;
+	}
+}
+
