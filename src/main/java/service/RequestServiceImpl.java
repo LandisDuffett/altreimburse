@@ -22,5 +22,12 @@ public class RequestServiceImpl implements RequestService {
 		// logger.info("Exited getAllBooks() in service.");
 		return allRequests;
 	}
-
+	
+	@Override
+	public RequestPojo addRequest(RequestPojo requestPojo) throws ApplicationException {
+		//logger.info("Entered addBook() in service.");
+		RequestPojo returnRequestPojo = this.requestDao.addRequest(requestPojo);
+		//logger.info("Exited addBook() in service.");
+		return returnRequestPojo;
+	}
 }

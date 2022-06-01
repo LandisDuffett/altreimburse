@@ -22,5 +22,13 @@ public class UserServiceImpl implements UserService {
 		// logger.info("Exited getAllBooks() in service.");
 		return allUsers;
 	}
+	
+	@Override
+	public UserPojo getUser(String userEmail, String userPswd) throws ApplicationException {
+		//logger.info("Entered getABook() in service.");
+		UserPojo returnUserPojo = this.userDao.getUser(userEmail, userPswd);
+		//logger.info("Exited getABook() in service.");
+		return returnUserPojo;
+	}
 }
 

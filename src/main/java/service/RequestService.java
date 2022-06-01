@@ -9,4 +9,7 @@ public interface RequestService {
 
 	List<RequestPojo> getAllRequests() throws ApplicationException;
 	
+	RequestPojo addRequest(RequestPojo requestPojo) throws ApplicationException;
+
+	
 }

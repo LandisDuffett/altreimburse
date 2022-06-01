@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="app.js"></script>
+    <title>Employee</title>
+</head>
+<body>
+    <div>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">CorpoCom Internal Reimbursement Request Management System</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#" onclick="getRequestHistory()">View Request History</a></li>
+                <li><a href="#" onclick="getRequestsByEmployee()">View Open Requests</a></li>
+                <li><a href="#" onclick="displayAddRequestForm()">Submit New Request</a></li>
+                <li><a href="#" onclick="getUserInfo()">View/Edit Personal Info</a></li>
+            </ul>
+            </div>
+        </nav>
+    </div>
+    
+ <div id="requestForm">
+
+ </div>
+ <div id="myrequests"></div>
+</body>
+</html>

@@ -32,6 +32,13 @@ public class Request {
 			
 		});
 		
+		server.post("/requests", (ctx)->{
+			RequestPojo newRequestPojo = ctx.bodyAsClass(RequestPojo.class);
+			
+			RequestPojo returnRequestPojo = requestService.addRequest(newRequestPojo);
+			ctx.json(returnRequestPojo);
+		});
+		
 		server.get("/users", (ctx)->{
 			// here we contact service, service contacts dao 
 			// dao fetches all the books and return it back here
@@ -42,6 +49,13 @@ public class Request {
 			// the ctx.json() will take care of the above 2 and sends back the response to the client/consumer
 			ctx.json(allUsers);
 			
+		});
+		
+		server.get("/users/{uemail}/{upswd}", (ctx) -> {
+			String userEmail = ctx.pathParam("uemail");
+			String userPswd = ctx.pathParam("upswd");
+			//int bookIdInteger = Integer.parseInt(bookId);
+			ctx.json(userService.getUser(userEmail, userPswd));
 		});
 	}
 }

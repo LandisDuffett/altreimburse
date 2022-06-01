@@ -8,5 +8,7 @@ import pojo.UserPojo;
 public interface UserService {
 	
 	List<UserPojo> getUsers() throws ApplicationException;
+	
+	UserPojo getUser(String userEmail, String userPswd) throws ApplicationException;
 
 }

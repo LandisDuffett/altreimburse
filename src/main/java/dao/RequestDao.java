@@ -8,4 +8,7 @@ import pojo.RequestPojo;
 public interface RequestDao {
 
 	List<RequestPojo> getAllRequests() throws ApplicationException;
+	
+	RequestPojo addRequest(RequestPojo requestPojo) throws ApplicationException;
+
 }

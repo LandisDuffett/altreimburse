@@ -43,4 +43,27 @@ public class UserDaoImpl implements UserDao {
 	
 		return allUsers;
 	}
+	
+	@Override
+	public UserPojo getUser(String userEmail, String userPswd) throws ApplicationException {
+	
+		Statement stmt;
+		UserPojo userPojo = null;
+		try {
+			Connection conn = DBUtil.makeConnection();
+			stmt = conn.createStatement();
+			String query = "select * from users where user_email='"+userEmail + "' and user_password='"+userPswd+"'";
+			
+			ResultSet rs = stmt.executeQuery(query);
+			
+			if(rs.next()) {
+				userPojo = new UserPojo(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getString(6));
+			}
+		} catch (SQLException e) {
+			throw new ApplicationException(e.getMessage());
+		}
+	
+		return userPojo;
+	}
 }

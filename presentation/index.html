@@ -10,7 +10,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="app.js"></script>
-    <title>Document</title>
+    <title>Home</title>
 </head>
 <body>
     <div>
@@ -22,8 +22,8 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
                 <li><a href="#">Submit Request</a></li>
-                <li><a href="#" onclick="printMyRequests()">Print My Requests</a></li>
-                <li><a href="#" onclick="printData()">See all Requests</a></li>
+                <li><a href="#" onclick="">Print My Requests</a></li>
+                <li><a href="#" onclick="">See all Requests</a></li>
             </ul>
             </div>
         </nav>
@@ -45,9 +45,9 @@
               <input type="password" class="form-control" id="pwd">
             </div>
           <!-- <button onclick="getUser(document.getElementById('email').value, getElementById('pwd').value)" class="btn btn-default">Submit</button>-->
-           <button class="button" type="button" onclick="getUser(document.getElementById('email').value, getElementById('pwd').value)">Submit</button>
+           <button class="button" type="button" onclick="getUser(document.getElementById('email').value, document.getElementById('pwd').value)">Submit</button>
      </div>
-     <div id="currentUser">
+     <div id="requestForm">
 
      </div>
      <div id="myrequests"></div>
