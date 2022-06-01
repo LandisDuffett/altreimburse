@@ -1,4 +1,5 @@
 currentUserId = 0;
+let loginF = document.getElementById("here");
 
 function getRequests() {
     fetch("http://localhost:7474/requests")
@@ -45,7 +46,7 @@ function displayAddRequestForm() {
                         </form>
                     </div>`
  ;
- document.getElementById("requestForm").innerHTML = requestForm;
+ document.getElementById("here").innerHTML = requestForm;
 }
 
 function getUsers() {
