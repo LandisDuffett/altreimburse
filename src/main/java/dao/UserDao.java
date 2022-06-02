@@ -10,4 +10,6 @@ public interface UserDao {
 	List<UserPojo> getUsers() throws ApplicationException;
 	
 	UserPojo getUser(String userEmail, String userPswd) throws ApplicationException;
+	
+	UserPojo editUser(UserPojo userPojo, int userId) throws ApplicationException;
 }

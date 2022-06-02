@@ -10,5 +10,8 @@ public interface UserService {
 	List<UserPojo> getUsers() throws ApplicationException;
 	
 	UserPojo getUser(String userEmail, String userPswd) throws ApplicationException;
+	
+	public UserPojo editUser(UserPojo userPojo, int userId) throws ApplicationException;
+
 
 }

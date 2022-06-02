@@ -30,5 +30,11 @@ public class UserServiceImpl implements UserService {
 		//logger.info("Exited getABook() in service.");
 		return returnUserPojo;
 	}
+	
+	@Override
+	public UserPojo editUser(UserPojo userPojo, int userId) throws ApplicationException {
+		UserPojo updatedUserPojo = this.userDao.editUser(userPojo, userId);
+		return updatedUserPojo;
+	}
 }
 

@@ -53,8 +53,13 @@ public class Request {
 			List<UserPojo> allUsers = userService.getUsers();
 			//now put the books in the response body, it has to converted to json format, 
 			// the ctx.json() will take care of the above 2 and sends back the response to the client/consumer
-			ctx.json(allUsers);
-			
+			ctx.json(allUsers);	
+		});
+		
+		server.put("/users", (ctx) -> {
+			UserPojo editedUserPojo = ctx.bodyAsClass(UserPojo.class);
+			UserPojo updatedUserPojo = userService.editUser(editedUserPojo, editedUserPojo.getUserId());
+			ctx.json(updatedUserPojo);
 		});
 		
 		server.get("/users/{uemail}/{upswd}", (ctx) -> {
