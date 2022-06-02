@@ -137,7 +137,8 @@ function getMyRequests() {
             </thead>
             <tbody>`;
             for(let request of responseJson) {
-                requestTableData += `<tr><td>${request.requestId}</td><td>${request.userId}</td><td>${request.requestDescription}</td><td>${request.requestAmount}</td></tr>`
+                requestTableData += `<tr><td>${request.requestId}</td><td>${request.requestDescription}</td><td>${request.requestAmount}</td><td>${request.requestStatus}</td>
+                <td>${request.requestTime}</td><td>${request.resolvedTime}</td></tr>`
             }
             requestTableData += `</tbody></table>`;
             document.getElementById("content").innerHTML = requestTableData;
