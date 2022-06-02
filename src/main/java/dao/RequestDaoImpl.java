@@ -46,6 +46,39 @@ public class RequestDaoImpl implements RequestDao {
 		return allRequests;
 	}
 	
+	public List<RequestPojo> getRequestsByEmployee(int userId) throws ApplicationException {
+		// TODO Auto-generated method stub
+		List<RequestPojo> empRequests = new ArrayList<RequestPojo>();
+
+		Statement stmt;
+		try {
+			Connection conn = DBUtil.makeConnection();
+			stmt = conn.createStatement();
+			String query = "select * from requests where request_userid="+userId+"";
+			//System.out.println("hello");
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				// here as we iterate through the rs we should
+				// each record in a pojo object and
+				// add it to the collection
+				// and at the end we return the collection
+
+				// as we iterate we are taking each record and storing it in a requestPojo object
+				RequestPojo requestPojo = new RequestPojo(rs.getInt(1), rs.getInt(2), rs.getDouble(3), rs.getString(4),
+						rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8));
+
+				// add the bookPojo obj to a collection
+				empRequests.add(requestPojo);
+
+			}
+		} catch (SQLException e) {
+			throw new ApplicationException(e.getMessage());
+		}
+	
+		return empRequests;
+	}
+	
 	@Override
 	public RequestPojo addRequest(RequestPojo requestPojo) throws ApplicationException {
 		
@@ -81,5 +114,6 @@ public class RequestDaoImpl implements RequestDao {
 		
 		return requestPojo;
 	}
+	
 
 }

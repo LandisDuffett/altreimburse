@@ -1,5 +1,7 @@
 currentUserId = 0;
 let loginF = document.getElementById("here");
+let currentUser = {};
+
 
 function getRequests() {
     fetch("http://localhost:7474/requests")
@@ -45,8 +47,25 @@ function displayAddRequestForm() {
                             <button type="button" class="btn btn-primary" onclick="addRequest()">Submit New Reimbursement Request</button>
                         </form>
                     </div>`
- ;
  document.getElementById("here").innerHTML = requestForm;
+}
+
+function displayEmployeeNav() {
+    currentUser = JSON.parse(window.localStorage.getItem("currentUser"))
+    let empNav = `<nav class="navbar navbar-inverse navbar-fixed-top">
+                    <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">CorpoCom Internal Reimbursement Request Management System</a>
+                    </div>
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Logout</a></li>
+                        <li><a href="#">Submit Request</a></li>
+                        <li><a href="#" onclick="displayAddRequestForm()">Submit New Request</a></li>
+                        <li><a href="#" onclick="getMyRequests()">Get My Requests</a></li>
+                    </ul>
+                    </div>
+                </nav>`
+    document.getElementById("content").innerHTML = empNav;
 }
 
 function getUsers() {
@@ -54,12 +73,12 @@ function getUsers() {
 }
 
 function addRequest() {
-    console.log(currentUserId)
+    //console.log(currentUserId)
     const d = new Date();
-    let text = d.toTimeString();
+    let text = d.toUTCString();
     let newRequest = {
         requestId: 0,
-        userId: currentUserId,
+        userId: currentUser.userId,
         requestAmount:document.getElementById("reqAmt").value,
         requestDescription:  document.getElementById("reqDescr").value,
         requestStatus: "pending",
@@ -84,19 +103,48 @@ function getUser(email, password) {
         .then(response => response.json())
         .then(responseJson => {
         if(responseJson.userEmail == email) {
-        console.log(responseJson.userId)
-        currentUserId = responseJson.userId;
-        console.log(currentUserId)
+        //console.log(responseJson.userId)
+        //currentUserId = responseJson.userId;
+        //console.log(currentUserId)
         //
+        window.localStorage.setItem("currentUser", JSON.stringify(responseJson));
         }
         /*
         let requestTableData3 = ""
         requestTableData3 += `<button class="button" type="button" onclick="primtMyRequests()">Print My Requests</button>`
         document.getElementById("currentUser").innerHTML = requestTableData3;
         */
+       console.log(responseJson);
+     
         })
        // .then(window.location.href="./employee.html")
-       .then(displayAddRequestForm())
+       .then(displayEmployeeNav())
+}
+
+function getMyRequests() {
+    fetch("http://localhost:7474/requests/"+currentUser.userId, {method: 'get'})
+        .then(response => response.json())
+        .then(responseJson => {
+            console.log(responseJson)
+            let requestTableData = `<table class="table table-bordered">
+            <thead>
+                <tr>
+                <th>request id</th>
+                <th>user id</th>
+                <th>request description</th>
+                <th>request amount</th>
+                </tr>
+            </thead>
+            <tbody>`;
+            for(let request of responseJson) {
+                requestTableData += `<tr><td>${request.requestId}</td><td>${request.userId}</td><td>${request.requestDescription}</td><td>${request.requestAmount}</td></tr>`
+            }
+            requestTableData += `</tbody></table>`;
+            document.getElementById("content").innerHTML = requestTableData;
+
+        })
+        .catch(error => console.log(error));
+    
 }
 
 /*

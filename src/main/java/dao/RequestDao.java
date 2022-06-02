@@ -10,5 +10,8 @@ public interface RequestDao {
 	List<RequestPojo> getAllRequests() throws ApplicationException;
 	
 	RequestPojo addRequest(RequestPojo requestPojo) throws ApplicationException;
+	
+	List<RequestPojo> getRequestsByEmployee(int userId) throws ApplicationException;
+
 
 }

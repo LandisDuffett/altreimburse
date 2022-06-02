@@ -23,6 +23,13 @@ public class RequestServiceImpl implements RequestService {
 		return allRequests;
 	}
 	
+	public List<RequestPojo> getRequestsByEmployee(int userId) throws ApplicationException {
+		// logger.info("Entered getAllBooks() in service.");
+		List<RequestPojo> empRequests = this.requestDao.getRequestsByEmployee(userId);
+		// logger.info("Exited getAllBooks() in service.");
+		return empRequests;
+	}
+	
 	@Override
 	public RequestPojo addRequest(RequestPojo requestPojo) throws ApplicationException {
 		//logger.info("Entered addBook() in service.");

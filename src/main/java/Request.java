@@ -32,6 +32,12 @@ public class Request {
 			
 		});
 		
+		server.get("/requests/{uid}", (ctx) -> {
+			int userId = Integer.parseInt(ctx.pathParam("uid"));
+			List<RequestPojo> empRequests = requestService.getRequestsByEmployee(userId);
+			ctx.json(empRequests);
+		});
+		
 		server.post("/requests", (ctx)->{
 			RequestPojo newRequestPojo = ctx.bodyAsClass(RequestPojo.class);
 			
