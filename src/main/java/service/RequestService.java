@@ -12,6 +12,8 @@ public interface RequestService {
 	RequestPojo addRequest(RequestPojo requestPojo) throws ApplicationException;
 	
 	List<RequestPojo> getRequestsByEmployee(int userId) throws ApplicationException;
-
+	
+	RequestPojo updateRequest(RequestPojo requestPojo, int userId) throws ApplicationException;
+	
 	
 }
