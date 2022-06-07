@@ -68,5 +68,10 @@ public class Request {
 			//int bookIdInteger = Integer.parseInt(bookId);
 			ctx.json(userService.getUser(userEmail, userPswd));
 		});
+		server.put("/requests", (ctx)->{
+			RequestPojo updateRequestPojo = ctx.bodyAsClass(RequestPojo.class);
+			RequestPojo returnRequestPojo = requestService.updateRequest(updateRequestPojo,updateRequestPojo.getUserId());
+			ctx.json(returnRequestPojo);
+		});
 	}
 }

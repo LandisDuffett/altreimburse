@@ -7,6 +7,7 @@
 }
 
 .form {
+<<<<<<< HEAD
    
     position : absolute;
     top: 50%;
@@ -22,11 +23,34 @@
     max-width: 100%;
     margin-bottom: 20px;
     margin-top: 100px;
+=======
+    max-width: 50%;
+}
+
+.form-group {
+    margin-left: 20px;
+}
+
+.button {
+    margin-left: 20px;
+>>>>>>> 195a4faec0209a37babbfca1f2f140107642655c
 }
 
 #content {
     margin-top: 200px;
+<<<<<<< HEAD
     padding: 0;
     color:#fff;
     font-size: 24px;
 }
+=======
+}
+
+.editP {
+    margin-bottom: 15px;
+}
+
+.edPbutton {
+    margin-right: 10px;
+}
+>>>>>>> 195a4faec0209a37babbfca1f2f140107642655c
