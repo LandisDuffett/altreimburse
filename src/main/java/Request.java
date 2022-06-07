@@ -33,8 +33,7 @@ public class Request {
 		});
 		
 		server.get("/requests/{uid}", (ctx) -> {
-			int userId = Integer.parseInt(ctx.pathParam("uid"));
-			List<RequestPojo> empRequests = requestService.getRequestsByEmployee(userId);
+			List<RequestPojo> empRequests = requestService.getRequestsByEmployee(Integer.parseInt(ctx.pathParam("uid")));
 			ctx.json(empRequests);
 		});
 		
@@ -68,10 +67,17 @@ public class Request {
 			//int bookIdInteger = Integer.parseInt(bookId);
 			ctx.json(userService.getUser(userEmail, userPswd));
 		});
-		server.put("/requests", (ctx)->{
-			RequestPojo updateRequestPojo = ctx.bodyAsClass(RequestPojo.class);
-			RequestPojo returnRequestPojo = requestService.updateRequest(updateRequestPojo,updateRequestPojo.getUserId());
-			ctx.json(returnRequestPojo);
+		server.put("/requests/{requestId}/{status}", (ctx)->{
+			int requestId = Integer.parseInt (ctx.pathParam("requestId"));
+			String choice = ctx.pathParam("status");
+			boolean status = requestService.updateRequest(requestId, choice);
+			ctx.json(status);
+			
+		});
+		
+		server.get("/requests/{rid}", (ctx) ->{
+			RequestPojo requestInfo = requestService.getRequestInfo(Integer.parseInt(ctx.pathParam("rid")));
+			ctx.json(requestInfo);
 		});
 	}
 }

@@ -389,7 +389,7 @@ function getAllRequests() {
         <tbody> `;
         for (let request of responseJson) {
           requestTableData += `<tr>
-                                <td>${request.requestId}</td><td>${request.requestUserId}</td>
+                                <td>${request.requestId}</td><td>${request.userId}</td>
                                 <td>${request.requestAmount}</td><td>${request.requestDescription}</td>
                                 <td>${request.requestImageURL}</td><td>${request.requestTime}</td>
                                 <td>${request.resolvedTime}</td><td>${request.requestStatus}</td>
@@ -401,11 +401,12 @@ function getAllRequests() {
       .catch(error => console.log(error));
 
   }
-  function getUserRequests(requestUserId) {
-    fetch("http://localhost:7474/requests/"+ requestUserId, {method: 'get'})
-      .then(response => response.json())
+  function getUserRequests(userId) {
+     console.log(userId);
+    fetch("http://localhost:7474/requests/"+ userId, {method:'get'})
+    .then(response => response.json())
       .then(responseJson => {
-
+        console.log(responseJson)
         let userRequestsData = `<table class= "table table-hover">
         <thead>
           <tr>
@@ -421,20 +422,20 @@ function getAllRequests() {
         </thead>
         <tbody> `;
       for (let request of responseJson) {
-        if(responseJson.requestUserId == searchbar){
+        if(request.userId == userId){
           userRequestsData += `<tr>
-                                <td>${request.requestId}</td><td>${request.requestUserId}</td>
+                                <td>${request.requestId}</td><td>${request.userId}</td>
                                 <td>${request.requestAmount}</td><td>${request.requestDescription}</td>
                                 <td>${request.requestImageURL}</td><td>${request.requestTime}</td>
                                 <td>${request.resolvedTime}</td><td>${request.requestStatus}</td>
                               </tr> `;
+        }
+    }
         userRequestsData += `</tbody></table>`;
-        document.getElementById("data3").innerHTML = userRequestsData;
-      }
-    }})
+        document.getElementById("data3").innerHTML = userRequestsData; 
+    })
     .catch(error => console.log(error));
-
-  }
+ }
 
   function getUsers() {
     
@@ -459,6 +460,7 @@ function getAllRequests() {
                                       <td>${employee.userFirstName}</td>
                                       <td>${employee.userLastName}</td>
                                       <td>${employee.userEmail}</td>
+                                      <td><button class="btn btn-danger" type="button" onclick="getUserRequests(${employee.userId})">Employee Requests</button></td>
                                       </tr> `;
         }
         employeesTableData += `</tbody></table>`;
@@ -491,42 +493,34 @@ function getAllRequests() {
          for (let request of responseJson) {
           if (request.requestStatus == "pending") {
             pendingRequestsData += `<tr>
-                                <td>${request.requestId}</td><td>${request.requestUserId}</td>
+                                <td>${request.requestId}</td><td>${request.userId}</td>
                                 <td>${request.requestAmount}</td><td>${request.requestDescription}</td>
                                 <td>${request.requestImageURL}</td><td>${request.requestTime}</td>
                                 <td>${request.resolvedTime}</td><td>${request.requestStatus}</td>
-                                <td> <div class="container">
-                                <form>
-                                  <div class="form-group">
-                                  <div class="col-xs-2"> </div>
-                                    <select class="form-control" id="select">
-                                      <option>Approve</option>
-                                      <option>Deny</option>
-                                    </select> 
-                                    <input type="button" onclick="updateRequest()" value="update">     
-                                  </div>
-                                </form>
-                              </div>
+                                <td>  <div class="col-xs-2"> 
+                                <td><button type="button" class="btn btn-primary" onclick="updateRequest(${request.requestId}, 'approved')">approve</button></td>
+                                <td><button type="button" class="btn btn-primary" onclick="updateRequest(${request.requestId}, 'denied')">deny</button></td>     
+                             </div>
                               </td>
                               </tr> `;
+          }
+        }
           pendingRequestsData += `</tbody></table>`;
           document.getElementById("data").innerHTML = pendingRequestsData;
-          requests.push(request)
-          window.localStorage.setItem("requests",JSON)
-        }
+        
 
-      }})
+      })
       .catch(error => console.log(error));
 
   }
 
   function getResolvedRequests() {
     console.log("data printed on console");
-    fetch("http://localhost:7474/requests")
+    fetch("http://localhost:7474/requests",{method:'get'})
       .then(response => response.json())
       .then(responseJson => {
         console.log(responseJson)
-        let resolvedRequestsData = `<table class= "table table-hover">
+        let resolvedRequestsData = `<table class="table table-hover">
           <thead>
             <tr>
             <th>Request ID</th>
@@ -539,28 +533,37 @@ function getAllRequests() {
             <th>Status</th>
             </tr>
           </thead>
-          <tbody> `;
+          <tbody>`;
         for (let request of responseJson) {
-          if (request.requestStatus == "approved" || "denied") {
+          if(request.requestStatus != "pending") {
             resolvedRequestsData += `<tr>
-                                  <td>${request.requestId}</td><td>${request.requestUserId}</td>
+                                  <td>${request.requestId}</td><td>${request.userId}</td>
                                   <td>${request.requestAmount}</td><td>${request.requestDescription}</td>
                                   <td>${request.requestImageURL}</td><td>${request.requestTime}</td>
                                   <td>${request.resolvedTime}</td><td>${request.requestStatus}</td>
                                 </tr> `;
+          }
+        }
           resolvedRequestsData += `</tbody></table>`;
           document.getElementById("data2").innerHTML = resolvedRequestsData;
-        }
-      }})
+      })
       .catch(error => console.log(error));
 
   }
+  function updateRequest(requestId, choice){
+    console.log (requestId) 
+    console.log(choice);
 
-  function updateRequest(){
-    var choice = document.getElementById("select");
-    console.log();
-    fetch("http://localhost:7474/requests", {method: 'put', })
-  }
-
-
+    fetch("http://localhost:7474/requests/"+requestId+"/"+choice, { method: 'put' })
+        .then(response => response.json())
+        .then(responseJson => {
+            console.log(responseJson)
+            if (
+                responseJson == true
+            ){
+                getPendingRequests()  
+            }
+        })
+        .catch(error => console.log(error));
+}
 
