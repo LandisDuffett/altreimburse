@@ -114,26 +114,43 @@ public class RequestDaoImpl implements RequestDao {
 		
 		return requestPojo;
 	}
-	public RequestPojo updateRequest(RequestPojo requestPojo, int userId) throws ApplicationException {
-		try {
+
+
+	public boolean updateRequest(int requestId, String choice) throws ApplicationException {
+			boolean status = false;
+			try {
+				Connection conn = DBUtil.makeConnection();
+				Statement stmt = conn.createStatement();
+				String query = "UPDATE requests SET request_status='" + choice + "' WHERE request_id="
+						+ requestId + "";
+
+				int rowsAffected = stmt.executeUpdate(query);
+				if(rowsAffected > 0) {
+					status = true;
+				}
+				
+			} catch (SQLException e) {
+				throw new ApplicationException(e.getMessage());
+			}
+
+			return status;
+	}
+	@Override
+	public RequestPojo getRequestInfo(int requestId) throws ApplicationException{
+		RequestPojo requestPojo = null;
+		try {			
 			Connection conn = DBUtil.makeConnection();
 			Statement stmt = conn.createStatement();
-			String query = "update requests set request_status=" + requestPojo.getRequestStatus() + " where request_id="
-					+ requestPojo.getRequestId();
-
-			int rowsAffected = stmt.executeUpdate(query);
-			if(rowsAffected > 0) {
-				String query2 = "select * from requests where request_userid="+requestPojo.getUserId()+"";
-				ResultSet rs = stmt.executeQuery(query2);
-				if(rs.next()) {
-					 requestPojo = new RequestPojo(rs.getInt(1), rs.getInt(2), rs.getDouble(3), rs.getString(4),
-							rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8));
-				}
+			String query = "select * from requests where request_id="+requestId+"";
+			
+			ResultSet rs = stmt.executeQuery(query);
+			if(rs.next()) {
+			  requestPojo = new RequestPojo(rs.getInt(1), rs.getInt(2), rs.getDouble(3), rs.getString(4),
+					rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8));
 			}
 		} catch (SQLException e) {
 			throw new ApplicationException(e.getMessage());
 		}
-
 		return requestPojo;
 	}
 

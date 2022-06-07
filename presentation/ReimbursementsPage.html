@@ -21,7 +21,7 @@
                 <li><a href="ManagerHome.html">Home</a></li>
                 <li><a href="Employees.html">Employees</a></li>
                 <li class="active"><a href="ReimbursementsPage.html">Reimbursment Requests</a></li>
-                <li><a href="#" style="float:right;">Logout</a></li>
+                <li><a href="#" style="float:right;"onclick="logOut()">Logout</a></li>
             </ul>
         </div>
     </nav>
@@ -34,20 +34,12 @@
           <li><a data-toggle="pill" href="#menu1" onclick="getPendingRequests()">Pending Requests</a></li>
           <li><a data-toggle="pill" href="#menu2" onclick="getResolvedRequests()">Resolved Requests</a></li>
           <div class="container">
-            <form action="action_page.php" method="post" target="_self">
-              <div class="input-group">
-                <input type="number" class="form-control" id="searchbar" placeholder="Search" name="userId">
-                <div class="input-group-btn">
-                  <button class="btn btn-default" type="submit" onkeyup="getUserRequests(document.getElementById('searchbar').value)"><i class="glyphicon glyphicon-search"></i></button>
-                </div>
-              </div>
-            </form>
           </div>
         </ul>
         <div class="tab-content">
           <div id="home" class="tab-pane fade in active">
             <div id="content"></div>
-            <div id="data3">
+            <div id="requestInfo">
             </div>
           </div>
           <div id="menu1" class="tab-pane fade">
